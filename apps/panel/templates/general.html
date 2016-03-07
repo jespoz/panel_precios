@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+	<input type="hidden" id="periodo" value="{% for d in descuento %}{{ d.id }}{% endfor %}">
+	<span class="breadcrums">Venta actualizada al {{ actualizacion|date:"d M Y" }}</span>
+	<h1>Panel Control de Precios</h1>
+	<h2>
+		{% if id_anterior %}
+			<small><a href="{% url 'panel_app:general_filtro' pk=id_anterior %}">{{ anterior }}</a></small>
+		{% else %}
+			<small></small>
+		{% endif %}
+		<span>{{ periodo }}</span>
+		{% if id_posterior %}
+			<small><a href="{% url 'panel_app:general_filtro' pk=id_posterior %}">{{ posterior }}</a></small>
+		{% else %}
+			<small></small>
+		{% endif %}
+	</h2>
+	<small>Subgerencia de Administración y Gestión</small>
+	<section id="generales">
+		<article>
+			<h3>Descuento Nacional</h3>
+			<section>
+				<div>
+					<div id="container" data-value="{% for d in descuento %}{{ d.descuento }}{% endfor %}" style="min-width: 300px; height: 200px;"></div>
+					<span class="porcentaje_descuento">{% for d in descuento %}{{ d.descuento }}%{% endfor %}</span>
+				</div>
+				<div id="datos">
+					<p>{% for d in descuento %}$ {{ d.diferencia|floatformat:0|intcomma }}{% endfor %} MM</p>
+					<p>Precio Lista: <span>${% for d in descuento %}{{ d.precio_lista|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Precio Real: <span>${% for d in descuento %}{{ d.precio_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+			</section>
+		</article>
+		<article>
+			<h3>Cumplimientos Metas de Venta</h3>
+			<section>
+				<div id="datos" class="m30">
+					<span>Kilos</span>
+					<p class="caluga_porcentaje">{% for d in descuento %}{{ d.cumpl_kilos }}{% endfor %}%</p>
+					<p>Ppto: <span>{% for d in descuento %}{{ d.kilos_ppto|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Proy: <span>{% for d in descuento %}{{ d.kilos_proy|floatformat:0|intcomma }}{% endfor %}</span></p>
+					<p>Real: <span>{% for d in descuento %}{{ d.kilos_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+				<div id="datos" class="m30">
+					<span>Netos</span>
+					<p class="caluga_porcentaje">{% for d in descuento %}{{ d.cumpl_netos }}{% endfor %}%</p>
+					<p>Ppto: <span>{% for d in descuento %}{{ d.netos_ppto|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Proy: <span>{% for d in descuento %}{{ d.netos_proy|floatformat:0|intcomma }}{% endfor %}</span></p>
+					<p>Real: <span>{% for d in descuento %}{{ d.netos_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+			</section>
+		</article>
+	</section>
+	<section id="tres_vistas">
+		<article>
+			<div class="widget">
+				{% for self in descuento %}
+					<div class="widget_header"><a href="{% url 'panel_app:sector_general' pk=self.id %}">Sector</a></div>
+				{% endfor %}
+				<div class="widget_content">
+{# 					<div id="part_sector" style="min-width: 310px; height: 300px; max-width: 600px; margin: 0 auto"></div> #}
+					<div id="cumpl_sector" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+			</div>
+		</article>
+		<article>
+			<div class="widget">
+				{% for self in descuento %}
+					<div class="widget_header"><a href="{% url 'panel_app:tipo_general' pk=self.id %}">Tipo de Cliente</a></div>
+				{% endfor %}
+				<div class="widget_content">
+{# 					<div id="part_tc" style="min-width: 310px; height: 300px; max-width: 600px; margin: 0 auto"></div> #}
+					<div id="cumpl_tc" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+			</div>
+		</article>
+		<article>
+			<div class="widget">
+				{% for self in descuento %}
+					<div class="widget_header"><a href="{% url 'panel_app:zona_general' pk=self.id %}">Zona de Ventas</a></div>
+				{% endfor %}
+				<div class="widget_content">
+{# 					<div id="part_zona" style="min-width: 310px; height: 300px; max-width: 600px; margin: 0 auto"></div> #}
+					<div id="cumpl_zona" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+			</div>
+		</article>
+	</section>
+	<div class="tendencia">
+		<div id="tendencia" style="width: 100%; height: 200px;"></div>
+	</div>
+{% endblock content %}

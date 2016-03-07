@@ -1,0 +1,15 @@
+{% load staticfiles %}	
+<header>
+	<a href="{% url 'panel_app:general' %}"><img src="{% static "img/logo.png" %}" alt="Agrosuper"></a>
+	<div class="usuario">
+		<i class="icono-usuario"></i>
+		{% if user.first_name %}
+			<a href="{% url 'panel_app:logout' %}">{{ user.first_name }} {{ user.last_name }}</a>
+		{% else %}
+			<a href="{% url 'panel_app:logout' %}">{{ user }}</a>
+		{% endif %}
+	</div>
+	<div class="border">
+		<span class="breadcrums"></span>
+	</div>
+</header>

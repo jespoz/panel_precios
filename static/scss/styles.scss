@@ -1,0 +1,624 @@
+@import "colores";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+* {
+	font-family: 'Open sans', sans-serif;
+	font-weight: 300;
+}
+
+body {
+	background-image: url('../img/mybg.png');
+	height: 100vh;
+	margin: 0;
+}
+
+header {
+	background-color: $blanco;
+	display: flex;
+	height: 45px;
+	justify-content: flex-end;
+	line-height: 45px;
+	position: relative;
+	img {
+		left: 30px;
+		position: absolute;
+		top: 2px;
+		width: 110px;
+		z-index: 1;
+	}
+	.border {
+		background-color: $azul;
+		height: 25px;
+		right: 0;
+		position: absolute;
+		top: 45px;
+		width: calc(100% - 90px);
+		span {
+			color: $blanco;
+			font-size: 0.8em;
+			margin-right: 10px;
+			position: absolute;
+			right: 0;
+			top: -10px;
+			@media screen and (max-width: 600px) {
+				display: none;
+			}
+		}
+	}
+	.usuario {
+		display: flex;
+		color: $gris_oscuro;
+		cursor: pointer;
+		border-left: solid 1px $gris_oscuro;
+		font-size: 0.9em;
+		justify-content: center;
+		padding: 0 10px;
+		min-width: 150px;
+		&:hover {
+			color: $naranjo;
+			a {
+				color: $naranjo;
+			}
+		}
+		a {
+			color: $gris_oscuro;
+			text-decoration: none;
+		}
+		i {
+			font-size: 1.5em;
+			margin-right: 10px;
+			margin-top: 3px;
+		}
+	}
+}
+
+main {
+	margin: 50px 30px;
+	h1 {
+		color: $azul;
+		margin-bottom: 0;
+		text-align: center;
+	}
+	h2{
+		align-items: center;
+		color: $naranjo;
+		display: flex;
+		justify-content: space-around;
+		margin: 0;
+		small, span {
+			color: $naranjo;
+			display: inline;
+		}
+		small {
+			a {
+				color: $naranjo;
+				font-size: 0.7em;
+				text-decoration: none;
+			}
+			&:first-child {
+				text-align: right;
+			}
+			&:last-child {
+				text-align: left;
+			}
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+		}
+		span {
+			min-width: 200px;
+			text-align: center;
+		}
+	}
+	h3 {
+		color: $azul;
+		margin-top: 0;
+	}
+	section {
+		display: flex;
+		margin-top: 30px;
+		article, div {
+			flex: 1; 
+			text-align: center;
+			section {
+				margin-top: 0;
+			}
+		}
+		#datos {
+			align-self: center;
+			height: 200px;
+			justify-content: center;
+			p {
+				&:first-child {
+					color: $naranjo;
+					font-size: 2em;
+					font-weight: 600;
+					margin-bottom: 0;
+				}
+				span {
+					color: $azul;
+					font-weight: 600;
+				}
+			}
+			span {
+				color: $gris_oscuro;
+			}
+			.caluga_porcentaje {
+				border: solid 1px $gris_oscuro;
+				border-radius: 5px;
+				color: $naranjo;
+				font-size: 2em;
+				font-weight: 600;
+				margin: 0 auto;
+				width: 5em;
+				span {
+					color: $azul;
+					font-size: 1.2em;
+					font-weight: 600;
+				}
+			}
+		}
+		.chart {
+			margin-top: 30px;
+			position: relative;
+			span {
+				font-size: 1.3em;
+				font-weight: 600;
+				left: 50%;
+				position: absolute;
+			    top: 50%;
+			    transform: translate(-50%, -50%);
+			}
+		}
+	}
+	small {
+		color: $gris_oscuro;
+		display: block;
+		text-align: center;
+		width: 100%;
+	}
+	#generales {
+		& > article {
+			&:last-child {
+				border-left: dashed 1px $gris_oscuro;
+			}
+		}
+	}
+	#aperturas {
+		.widget {
+			display: flex;
+			flex-direction: column;
+			&_header {
+				background-color: $azul;
+				color: $blanco;
+				flex: 0;
+				line-height: 2em;
+				margin: 2px;
+				padding-left: 50px;
+				text-align: left;
+				div {
+					text-align: left;
+					span {
+						padding-left: 30px;
+					}
+				}
+			}
+			&_content {
+				background-color: $blanco;
+				margin: 2px;
+				min-height: 100px;
+				padding: 20px;
+				table {
+					font-size: 0.9em;
+					margin-top: 0;
+					thead {
+						tr {
+							background-color: lighten($azul, 5);
+							th {
+								color: $blanco;
+								text-align: center;
+								&:hover {
+									cursor: default;
+								}
+							}
+						}
+					}
+					tbody {
+						tr {
+							td {
+								padding-right: 20px;
+								text-align: right;
+								&:first-child {
+									padding-left: 20px;
+									text-align: left;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#tres_vistas {
+		flex-wrap: wrap;
+		.widget {
+			display: flex;
+			flex-direction: column;
+			min-width: 350px;
+			&_header {
+				background-color: $azul;
+				color: $blanco;
+				flex: 0;
+				line-height: 2em;
+				margin: 2px;
+				a {
+					color: $blanco;
+					display: block;
+					text-decoration: none;
+				}
+			}
+			&_content {
+				background-color: $blanco;
+				margin: 2px;
+				min-height: 100px;
+				padding: 20px;
+			}
+		}
+	}
+	#dispersion {
+		display: none;
+		.widget {
+			display: flex;
+			flex-direction: column;
+			min-width: 350px;
+			&_header {
+				background-color: $azul;
+				color: $blanco;
+				flex: 0;
+				line-height: 2em;
+				margin: 2px;
+				a {
+					color: $blanco;
+					display: block;
+					text-decoration: none;
+				}
+			}
+			&_content {
+				background-color: $blanco;
+				margin: 2px;
+				min-height: 100px;
+				padding: 20px;
+			}
+		}
+	}
+}
+
+table {
+	border-bottom: solid 2px $azul;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	tr {
+		td {
+			color: $gris_oscuro;
+			font-size: 1em;
+			line-height: 1.7em;
+			text-align: left;
+			&:nth-child(2), &:nth-child(3) {
+				padding-right: 5px;
+				text-align: right;
+			}
+			a {
+				display: block;
+				color: $gris_oscuro;
+				text-decoration: none;
+				width: 100%;
+			}
+		}
+		&.totales {
+			background-color: $celeste;
+			td {
+				border-top: solid 2px $azul;
+				color: $azul;
+				font-weight: 600;
+				text-align: right;
+			}
+		}
+		&.color_azul {
+			td {
+				color: $azul;
+			}
+		}
+		&.color_naranjo {
+			td {
+				color: $naranjo;
+			}
+		}
+		&:hover {
+			background-color: $celeste;
+			cursor: pointer;
+		}
+	}
+}
+
+.loader_background {
+	align-items: center;
+	background-color: black;
+	display: none;
+	height: 100vh;
+	justify-content: center;
+	left: 0;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 100;
+	.loader {
+  
+	  position: relative;
+	  width: 75px;
+	  height: 100px;
+	  
+	  &__bar {
+	    position: absolute;
+	    bottom: 0;
+	    width: 10px;
+	    height: 50%;
+	    background: white;
+	    transform-origin: center bottom;
+	    box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+	    
+	    @for $i from 1 through 5 { 
+	       &:nth-child(#{$i}) {
+	         left: ($i - 1) * 15px;
+	         transform: scale(1,$i*.2);
+	         animation: barUp#{$i} 2s infinite;
+	        }
+	    }
+	    
+	  }
+	  
+	  &__ball {
+	    position: absolute;
+	    bottom: 10px;
+	    left: 0;
+	    width: 10px;
+	    height: 10px;
+	    background: white;
+	    border-radius: 50%;
+	    animation: ball 2s infinite;
+	  }
+	}
+
+	@keyframes ball {
+	  0% {
+	    transform: translate(0, 0);
+	  }
+	  5% {
+	    transform: translate(8px, -14px);
+	  }
+	  10% {
+	    transform: translate(15px, -10px)
+	  }
+	  17% {
+	    transform: translate(23px, -24px)
+	  }
+	  20% {
+	    transform: translate(30px, -20px)
+	  }
+	  27% {
+	    transform: translate(38px, -34px)
+	  }
+	  30% {
+	    transform: translate(45px, -30px)
+	  }
+	  37% {
+	    transform: translate(53px, -44px)
+	  }
+	  40% {
+	    transform: translate(60px, -40px)
+	  }
+	  50% {
+	    transform: translate(60px, 0)
+	  }
+	  57% {
+	    transform: translate(53px, -14px)
+	  }
+	  60% {
+	    transform: translate(45px, -10px)
+	  }
+	  67% {
+	    transform: translate(37px, -24px)
+	  }
+	  70% {
+	    transform: translate(30px, -20px)
+	  }
+	  77% {
+	    transform: translate(22px, -34px)
+	  }
+	  80% {
+	    transform: translate(15px, -30px)
+	  }
+	  87% {
+	    transform: translate(7px, -44px)
+	  }
+	  90% {
+	    transform: translate(0, -40px)
+	  }
+	  100% {
+	    transform: translate(0, 0);
+	  }
+	}
+
+	@keyframes barUp1 { 
+	  0% {
+	    transform: scale(1, .2);
+	  }
+	  40%{
+	    transform: scale(1, .2);
+	  }
+	  50% {
+	    transform: scale(1, 1);
+	  }
+	  90% {
+	    transform: scale(1,1);
+	  }
+	  100% {
+	    transform: scale(1,.2);
+	  }
+	}
+	@keyframes barUp2 { 
+	  0% {
+	    transform: scale(1, .4);
+	  }
+	  40% {
+	    transform: scale(1, .4);
+	  }
+	  50% {
+	    transform: scale(1, .8);
+	  }
+	  90% {
+	    transform: scale(1, .8);
+	  }
+	  100% {
+	    transform: scale(1, .4);
+	  }
+	}
+	@keyframes barUp3 { 
+	  0% {
+	    transform: scale(1, .6);
+	  }
+	  100% {
+	    transform: scale(1, .6);
+	  }
+	}
+	@keyframes barUp4 { 
+	  0% {
+	    transform: scale(1, .8);
+	  }
+	  40% {
+	    transform: scale(1, .8);
+	  }
+	  50% {
+	    transform: scale(1, .4);
+	  }
+	  90% {
+	    transform: scale(1, .4);
+	  }
+	  100% {
+	    transform: scale(1, .8);
+	  }
+	}
+	@keyframes barUp5 { 
+	  0% {
+	    transform: scale(1, 1);
+	  }
+	  40% {
+	    transform: scale(1, 1);
+	  }
+	  50% {
+	    transform: scale(1, .2);
+	  }
+	  90% {
+	    transform: scale(1, .2);
+	  }
+	  100% {
+	    transform: scale(1, 1);
+	  }
+	}
+}
+
+.m30 {
+	margin-top: 10px;
+}
+
+.mini_charts {
+	border-bottom: $gris_oscuro dashed 1px;
+	display: flex;
+	height: 100px;
+	margin-bottom: 20px;
+	padding-bottom: 40px;
+	.gauge_cumplimiento {
+		display: flex;
+		flex-direction: column;
+		border-left: dashed $gris_oscuro 1px;
+		&_datos {
+			font-size: 0.8em;
+			text-align: right;
+			small {
+				text-align: right;
+			}
+		}
+		&_forecast {
+			display: flex;
+			flex-direction: column;
+			div {
+				color: $gris_oscuro;
+				margin-left: 20px;
+				position: relative;
+				text-align: left;
+				span {
+					color: $naranjo;
+					font-size: 1.2em;
+					font-weight: 600;
+					position: absolute;
+					right: 20px;
+				}
+			}
+		}
+	}
+	&_titulo {
+		color: $azul;
+		font-size: 0.8em;
+		margin-bottom: 10px;
+	}
+}
+
+.porcentaje_descuento {
+	display: block;
+	color: $naranjo;
+	font-size: 2em;
+	margin-top: -20px;
+}
+
+.tendencia{
+	border-bottom: dashed $gris_oscuro 1px;
+	padding-bottom: 20px;
+}
+
+#part_sector, #part_tc, #part_zona {
+	margin-bottom: 50px !important;
+}
+
+#table_1_reset, #table_2_reset, #table_3_reset, #table_4_reset, #table_5_reset, #dispersion {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+#table_2, #table_3, #table_4, #table_5 {
+	display: none;
+}
+
+.reset {
+	border: none;
+	display: none;
+	color: $naranjo;
+	padding: 5px 10px;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.breadcrums {
+	color: $azul;
+	display: block;
+	font-size: 0.8em;
+	margin-top: -10px;
+	text-align: right;
+	width: 100%;
+}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+	<input type="hidden" id="periodo" value="{% for d in descuento %}{{ d.id }}{% endfor %}">
+	<span class="breadcrums">Venta actualizada al {{ actualizacion|date:"d M Y" }}</span>
+	<h1>Panel Control de Precios</h1>
+	<h2>{{ periodo }}</h2>
+	<small>Subgerencia de Administración y Gestión</small>
+	<section id="generales">
+		<article>
+			<h3>Descuento Nacional</h3>
+			<section>
+				<div>
+					<div id="container" data-value="{% for d in descuento %}{{ d.descuento }}{% endfor %}" style="min-width: 300px; height: 200px;"></div>
+					<span class="porcentaje_descuento">{% for d in descuento %}{{ d.descuento }}%{% endfor %}</span>
+				</div>
+				<div id="datos">
+					<p>{% for d in descuento %}$ {{ d.diferencia|floatformat:0|intcomma }}{% endfor %} MM</p>
+					<p>Precio Lista: <span>${% for d in descuento %}{{ d.precio_lista|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Precio Real: <span>${% for d in descuento %}{{ d.precio_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+			</section>
+		</article>
+		<article>
+			<h3>Cumplimientos Metas de Venta</h3>
+			<section>
+				<div id="datos" class="m30">
+					<span>Kilos</span>
+					<p class="caluga_porcentaje">{% for d in descuento %}{{ d.cumpl_kilos }}{% endfor %}%</p>
+					<p>Ppto: <span>{% for d in descuento %}{{ d.kilos_ppto|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Proy: <span>{% for d in descuento %}{{ d.kilos_proy|floatformat:0|intcomma }}{% endfor %}</span></p>
+					<p>Real: <span>{% for d in descuento %}{{ d.kilos_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+				<div id="datos" class="m30">
+					<span>Netos</span>
+					<p class="caluga_porcentaje">{% for d in descuento %}{{ d.cumpl_netos }}{% endfor %}%</p>
+					<p>Ppto: <span>{% for d in descuento %}{{ d.netos_ppto|floatformat:0|intcomma }}{% endfor %}<span></p>
+					<p>Proy: <span>{% for d in descuento %}{{ d.netos_proy|floatformat:0|intcomma }}{% endfor %}</span></p>
+					<p>Real: <span>{% for d in descuento %}{{ d.netos_real|floatformat:0|intcomma }}{% endfor %}</span></p>
+				</div>
+			</section>
+		</article>
+	</section>
+	<section id="tres_vistas">
+		{% for self in sectores %}
+				<div class="widget">
+					{% csrf_token %}
+					<div class="widget_header">{{ self.sector.sector }}</div>
+					<div class="widget_content">
+						<div class="mini_charts">
+							<div class="gauge_descuento" style="max-width: 70%;">
+								<div class="mini_charts_titulo">
+									<span>% Descuento</span>
+								</div>
+								<div id="gauge_desc_{{ self.sector_id }}" data-value="{{ self.descuento }}" style="width: 100%; height: 100px; padding-right: 10px;"></div>
+							</div>
+							<div class="gauge_cumplimiento">
+								<div class="mini_charts_titulo">
+									<span>Cumplimientos Kilos</span>
+								</div>
+								<div class="gauge_cumplimiento_forecast">
+									<div>Kilos: <span>{{self.cumpl_kilos}}%</span></div>
+									<div>Netos: <span>{{self.cumpl_netos}}%</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="tendencia">
+							<div id="tendencia_{{ self.sector_id }}" style="width: 100%; height: 200px;"></div>
+						</div>
+						<table>
+							{% for i in apertura %}
+								{% ifequal self.sector_id  i.sector_id %} 
+									<tr data-descuento="{{ i.descuento }}" data-sector="{{ i.sector_id }}">
+										{% for desc in descuento %}
+											<td style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}"><a style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}" href="/apertura/{{ desc.id }}/sector/{{ i.sector_id }}/{{i.id_nivel2}}">{{ i.nivel2 }}</a></td>
+											<td style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}"><a style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}" href="/apertura/{{ desc.id }}/sector/{{ i.sector_id }}/{{i.id_nivel2}}">{{ i.diferencia|floatformat:0|intcomma }}</a></td>
+											<td style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}"><a style="{% if i.descuento < -15 %}color:#F26013;{% else %}color:#00669E;{% endif %}" href="/apertura/{{ desc.id }}/sector/{{ i.sector_id }}/{{i.id_nivel2}}">{{ i.descuento }}%</a></td>
+										{% endfor %}
+									</tr>
+								{% endifequal %}
+							{% endfor %}
+							<tr class="totales">
+								<td> </td>
+								<td>{{ self.diferencia|floatformat:0|intcomma }}</td>
+								<td>{{ self.descuento }}%</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+		{% endfor %}
+	</section>
+{% endblock content %}
+
+{% block extra_script %}
+	<script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+	<script src="{% static "js/sector_general.js" %}"></script>
+{% endblock extra_script %}
